@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node* next;
+};
+
+void create(struct Node**head,int val){
+    struct Node* newnode=(struct Node*)malloc(sizeof(struct Node));
+    struct Node*ptr= *head;
+    newnode->data=val;
+    
+    if(*head==NULL){
+        newnode->next=newnode;
+        *head=newnode;
+    }
+    else{
+        struct Node*ptr=*head;
+        while(ptr->next!=*head){
+            ptr=ptr->next;
+        }
+        ptr->next=newnode;
+        newnode->next=*head;
+    }
+}
+
+void traversal(struct Node*head){
+    struct Node*p=head;
+    do{
+        printf("%d\t",p->data);
+        p=p->next;
+    }while(p!=head);
+    printf("\n");
+}
+
+struct Node* insert_at_beg(struct Node*head,int val){
+    struct Node*p =(struct Node*)malloc(sizeof(struct Node));
+    p->data=val;
+    struct Node*ptr=head;
+    while(ptr->next!=head){
+        ptr=ptr->next;
+    }
+    
+    ptr->next=p;
+    p->next=head;
+    head=p;
+    return head;
+}
+
+struct Node* insert_at_last(struct Node*head,int val){
+    struct Node*p =(struct Node*)malloc(sizeof(struct Node));
+    struct Node*ptr=head;
+    p->data=val;
+    while(ptr->next!=head){
+        ptr=ptr->next;
+    }
+    ptr->next=p;
+    p->next=head;
+    return head;
+}
